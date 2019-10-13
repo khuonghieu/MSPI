@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#FF0D00</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#461B1B</color>
+    <color name="LOG_IN_TEXT_COLOR">#FFFFFF</color>
+    <color name="pinkRed">#FF4C4C</color>
+    <color name="Blue">#1FA5FF</color>
+    <color name="BACKGROUND_COLOR">#FFB75E</color>
+    <color name="DARK_BACKGROUND_COLOR">#F3CFA0</color>
+    <color name="QUOTE_TEXT_COLOR">#000000</color>
 </resources>

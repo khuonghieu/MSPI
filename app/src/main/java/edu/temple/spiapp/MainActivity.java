@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button chooseCam = (Button)findViewById(R.id.chooseCam);
-
+        Button chooseCam = findViewById(R.id.chooseCam);
+        TextView userName = findViewById(R.id.userText);
+        userName.setText("Logged in as:" + getIntent().getStringExtra("accountName"));
         chooseCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
