@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "746622845775",
-    "firebase_url": "https://mspi-1570996163513.firebaseio.com",
-    "project_id": "mspi-1570996163513",
-    "storage_bucket": "mspi-1570996163513.appspot.com"
+    "project_number": "224698699586",
+    "firebase_url": "https://mspi-a4b75.firebaseio.com",
+    "project_id": "mspi-a4b75",
+    "storage_bucket": "mspi-a4b75.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:746622845775:android:faf9c41d9a404024cdbb3a",
+        "mobilesdk_app_id": "1:224698699586:android:5c470644e394ec45a302db",
         "android_client_info": {
           "package_name": "edu.temple.spiapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "746622845775-l6n2l4h8sfs6220u8qmgvttej52l2ul8.apps.googleusercontent.com",
+          "client_id": "224698699586-jr80admmpch8ah2l78niei71i2inu1l9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "edu.temple.spiapp",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "746622845775-l8fbilc36g3svrlkntfidhpk1e75foqr.apps.googleusercontent.com",
+          "client_id": "224698699586-k5f5i8o08ooh37o74o6846507jp88c61.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCrB6HGu-cacggnygMuaBh_9I_uzo9_rcg"
+          "current_key": "AIzaSyBbYcWKXQ3EPLwpj62j7jW6XTIHnSPSciI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "746622845775-l8fbilc36g3svrlkntfidhpk1e75foqr.apps.googleusercontent.com",
+              "client_id": "224698699586-k5f5i8o08ooh37o74o6846507jp88c61.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
