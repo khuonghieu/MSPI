@@ -18,7 +18,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/googleg_standard_color_18" />
+            android:background="@drawable/fui_idp_button_background_github" />
 
         <TextView
             android:layout_width="wrap_content"

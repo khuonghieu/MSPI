@@ -15,25 +15,11 @@
         tools:context=".LogIn"
         tools:showIn="@layout/activity_log_in">
 
-        <ImageView
-            android:id="@+id/HOME_LOGO"
-            android:layout_width="141dp"
-            android:layout_height="163dp"
-            android:layout_marginStart="135dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="135dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/googleg_standard_color_18" />
-
         <TextView
             android:id="@+id/HOME_QUOTE"
             android:layout_width="406dp"
             android:layout_height="55dp"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="88dp"
             android:layout_marginEnd="73dp"
             android:text="Now I see you"
             android:textAlignment="center"
@@ -41,23 +27,26 @@
             android:textSize="24sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/HOME_LOGO" />
+            tools:layout_editor_absoluteY="128dp" />
 
         <Button
-            android:id="@+id/logInButton"
-            android:layout_width="399dp"
-            android:layout_height="85dp"
+            android:id="@+id/googleLogIn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/Blue"
-            android:text="Log In"
+            android:backgroundTint="#FFB75E"
+            android:foreground="@drawable/fui_ic_googleg_color_24dp"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.216"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/HOME_QUOTE" />
+            app:layout_constraintTop_toBottomOf="@+id/HOME_QUOTE"
+            app:layout_constraintVertical_bias="0.31" />
 
         <TextView
             android:id="@+id/textView"
@@ -65,7 +54,6 @@
             android:layout_height="65dp"
             android:layout_marginTop="33dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="30dp"
             android:background="@color/DARK_BACKGROUND_COLOR"
             android:text="MSPI!"
             android:textAlignment="center"
@@ -74,10 +62,22 @@
             android:textColorHint="@color/colorPrimary"
             android:textSize="50sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/HOME_LOGO"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/githubLogIn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/fui_ic_github_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.762"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.545" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
