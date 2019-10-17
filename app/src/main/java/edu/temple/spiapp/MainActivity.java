@@ -1,6 +1,7 @@
 package edu.temple.spiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-
+    private FragmentAdapter fragmentAdapter;
+    private ViewPager viewPager;
     Button signoutButton;
     //test commit, making sure I have version control setup properly.
     @Override
@@ -58,5 +61,20 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+            fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+            viewPager = (ViewPager)findViewById(R.id.container);
+            setupViewPager(viewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AccountFragment(), "account");
+        adapter.addFragment(new CameraFragment(), "camera");
+        adapter.addFragment(new NotifFragment(), "notifications");
+        viewPager.setAdapter(adapter);
     }
 }
