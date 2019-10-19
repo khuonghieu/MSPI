@@ -38,7 +38,6 @@ public class CameraFragment extends Fragment {
                 viewCam.getSettings().setJavaScriptEnabled(true);
                 viewCam.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                 viewCam.loadUrl(url);
-
             }
         });
 

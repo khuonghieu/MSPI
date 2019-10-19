@@ -12,9 +12,4 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="476dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
 </LinearLayout>
