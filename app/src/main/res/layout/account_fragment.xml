@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,10 +8,38 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="338dp"
+        android:layout_height="240dp"
         android:text="ACCOUNT INFORMATION HERE"
         android:textAlignment="textStart"
         android:textSize="36sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userText"
+        android:layout_width="318dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="286dp"
+        android:text="Will show account name"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/signoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sign out"
+        app:layout_constraintBottom_toTopOf="@+id/webView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.593" />
 
 </LinearLayout>

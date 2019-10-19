@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "224698699586-in8l11qq1ulrbsa175lb2fp8jveckmee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.temple.spiapp",
+            "certificate_hash": "382e713f372bc72c685dcc80e79a1681ebd500bd"
+          }
+        },
+        {
           "client_id": "224698699586-jr80admmpch8ah2l78niei71i2inu1l9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
