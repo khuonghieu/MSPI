@@ -1,7 +1,6 @@
 package edu.temple.spiapp;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +33,17 @@ public class NotiAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = new ImageView(context);
+        ImageView imageView = new ImageView(this.context);
         try {
             Picasso.get().load(linkArray.get(position)).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return imageView;
     }
 }
