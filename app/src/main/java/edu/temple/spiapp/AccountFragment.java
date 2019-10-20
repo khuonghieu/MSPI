@@ -22,12 +22,14 @@ import com.google.firebase.storage.FirebaseStorage;
 public class AccountFragment extends Fragment {
     private final static String TAG = "AccountFragment";
     Button signoutButton;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.account_fragment, container, false);
         TextView userName = view.findViewById(R.id.userText);
-        userName.setText(getActivity().getIntent().getStringExtra("Service name")+":"+
+        userName.setText("Logged In by: " +
+                getActivity().getIntent().getStringExtra("Service name") + ":" +
                 getActivity().getIntent().getStringExtra("accountName"));
 
         signoutButton = view.findViewById(R.id.signoutButton);
@@ -40,16 +42,16 @@ public class AccountFragment extends Fragment {
                         .build();
                 GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
                 FirebaseUser githubCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
-                if(googleCurrentAcc!=null){
-                    GoogleSignIn.getClient(getContext(),gso).signOut();
+                if (googleCurrentAcc != null) {
+                    GoogleSignIn.getClient(getContext(), gso).signOut();
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getActivity(),LogIn.class));
-                } else if(githubCurrentAcc!=null){
+                    startActivity(new Intent(getActivity(), LogIn.class));
+                } else if (githubCurrentAcc != null) {
                     FirebaseAuth.getInstance().signOut();
-                    GoogleSignIn.getClient(getContext(),gso).signOut();
-                    startActivity(new Intent(getActivity(),LogIn.class));
-                    getActivity().finish();
+                    GoogleSignIn.getClient(getContext(), gso).signOut();
+                    startActivity(new Intent(getActivity(), LogIn.class));
                 }
+                getActivity().finish();
             }
         });
         return view;

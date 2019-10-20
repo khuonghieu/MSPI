@@ -41,13 +41,9 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
         //Google
         final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+                .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         googleLogIn = findViewById(R.id.googleLogIn);
@@ -58,8 +54,10 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-        //Github
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
+        //Github
         githubLogIn = findViewById(R.id.githubLogIn);
         githubLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +71,6 @@ public class LogIn extends AppCompatActivity {
                         };
 
                 Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
-
                 if (pendingResultTask != null) {
                     // There's something already here! Finish the sign-in for your user.
                     pendingResultTask
@@ -95,34 +92,35 @@ public class LogIn extends AppCompatActivity {
                                             Toast.makeText(LogIn.this, "Failed github",
                                                     Toast.LENGTH_LONG).show();
                                         }
-                            });
+                                    });
                 } else {
                     provider.setScopes(scopes);
                     mAuth.startActivityForSignInWithProvider(LogIn.this, provider.build())
-                        .addOnSuccessListener(
-                                new OnSuccessListener<AuthResult>() {
-                                    @Override
-                                    public void onSuccess(AuthResult authResult) {
-                                        Intent intent = new Intent(LogIn.this, MainActivity.class);
-                                        intent.putExtra("Service name","Github");
-                                        intent.putExtra("accountName", authResult.getUser()
-                                                .getDisplayName());
-                                        startActivity(intent);
-                                    }
-                                })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(LogIn.this, "Failed github",
-                                                Toast.LENGTH_LONG).show();
-                                    }
-                        });
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<AuthResult>() {
+                                        @Override
+                                        public void onSuccess(AuthResult authResult) {
+                                            Intent intent = new Intent(LogIn.this, MainActivity.class);
+                                            intent.putExtra("Service name", "Github");
+                                            intent.putExtra("accountName", authResult.getUser()
+                                                    .getDisplayName());
+                                            startActivity(intent);
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(LogIn.this, "Failed github",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                 }
             }
         });
 
     }
+
     private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -139,6 +137,7 @@ public class LogIn extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -156,19 +155,18 @@ public class LogIn extends AppCompatActivity {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         GoogleSignInAccount currentGoogleUser = GoogleSignIn.getLastSignedInAccount(this);
-        if(currentUser!=null){
-            startActivity(new Intent(LogIn.this,MainActivity.class)
-                    .putExtra("accountName",currentUser.getDisplayName())
-                    .putExtra("Service name","Github"));
-        }
-        else if (currentGoogleUser!=null){
-            startActivity(new Intent(LogIn.this,MainActivity.class)
+        if (currentUser != null) {
+            startActivity(new Intent(LogIn.this, MainActivity.class)
+                    .putExtra("accountName", currentUser.getDisplayName())
+                    .putExtra("Service name", "Github"));
+        } else if (currentGoogleUser != null) {
+            startActivity(new Intent(LogIn.this, MainActivity.class)
                     .putExtra("accountName", currentGoogleUser.getDisplayName())
-                    .putExtra("Service name","Google"));
+                    .putExtra("Service name", "Google"));
         }
         super.onStart();
     }
