@@ -20,7 +20,6 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class NotifFragment extends Fragment {
     private final static String TAG = "AccountFragment";
@@ -46,7 +45,6 @@ public class NotifFragment extends Fragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 imageUriList.add(uri);
-                                Log.d("URI list inside", String.valueOf(imageUriList.size()));
                             }
                         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
