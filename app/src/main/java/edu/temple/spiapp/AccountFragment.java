@@ -12,11 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.OAuthCredential;
+import com.google.firebase.auth.OAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class AccountFragment extends Fragment {
@@ -47,7 +54,7 @@ public class AccountFragment extends Fragment {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(getActivity(), LogIn.class));
                 } else if (githubCurrentAcc != null) {
-                    FirebaseAuth.getInstance().signOut();
+                    FirebaseAuth.getInstance(FirebaseAuth.getInstance().getApp()).signOut();
                     GoogleSignIn.getClient(getContext(), gso).signOut();
                     startActivity(new Intent(getActivity(), LogIn.class));
                 }

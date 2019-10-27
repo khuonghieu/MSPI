@@ -1,5 +1,6 @@
 package edu.temple.spiapp;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,15 +63,9 @@ public class LogIn extends AppCompatActivity {
         githubLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com");
-                List<String> scopes =
-                        new ArrayList<String>() {
-                            {
-                                add("user:email");
-                            }
-                        };
-
+                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com",FirebaseAuth.getInstance());
                 Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
+
                 if (pendingResultTask != null) {
                     // There's something already here! Finish the sign-in for your user.
                     pendingResultTask
@@ -94,7 +89,6 @@ public class LogIn extends AppCompatActivity {
                                         }
                                     });
                 } else {
-                    provider.setScopes(scopes);
                     mAuth.startActivityForSignInWithProvider(LogIn.this, provider.build())
                             .addOnSuccessListener(
                                     new OnSuccessListener<AuthResult>() {
