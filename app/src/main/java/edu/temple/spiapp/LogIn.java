@@ -1,6 +1,5 @@
 package edu.temple.spiapp;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +22,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.OAuthProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class LogIn extends AppCompatActivity {

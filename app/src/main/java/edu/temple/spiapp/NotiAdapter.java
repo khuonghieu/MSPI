@@ -2,19 +2,14 @@ package edu.temple.spiapp;
 
 import android.content.Context;
 import android.net.Uri;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -37,7 +32,7 @@ public class NotiAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return linkArray.get(position);
+        return linkArray.get(linkArray.size()-position);
     }
 
     @Override
@@ -51,12 +46,12 @@ public class NotiAdapter extends BaseAdapter {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         ImageView imageView = new ImageView(this.context);
         try {
-            Picasso.get().load(linkArray.get(position)).into(imageView);
+            Picasso.get().load(linkArray.get(linkArray.size() - position -1)).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();
         }
         TextView textView = new TextView(this.context);
-        textView.setText(nameArray.get(position));
+        textView.setText(nameArray.get(nameArray.size() - position -1));
         linearLayout.addView(imageView);
         linearLayout.addView(textView);
         return linearLayout;
