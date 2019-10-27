@@ -32,6 +32,7 @@ public class NotifFragment extends Fragment {
 
         final ListView imageList = view.findViewById(R.id.imageList);
         final ArrayList<Uri> imageUriList = new ArrayList<>();
+        final ArrayList<String> nameList = new ArrayList<>();
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/images");
@@ -40,6 +41,7 @@ public class NotifFragment extends Fragment {
                 public void onSuccess(ListResult listResult) {
                     for (StorageReference item : listResult.getItems()) {
                         // All the items under listRef.
+                        nameList.add(item.getName());
                         item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
@@ -49,7 +51,7 @@ public class NotifFragment extends Fragment {
                         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
-                                NotiAdapter notiAdapter = new NotiAdapter(getContext(),imageUriList);
+                                NotiAdapter notiAdapter = new NotiAdapter(getContext(),imageUriList,nameList);
                                 imageList.setAdapter(notiAdapter);
                             }
                         });
