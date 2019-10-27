@@ -29,7 +29,7 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.account_fragment, container, false);
         TextView userName = view.findViewById(R.id.userText);
         userName.setText("Logged In by: " +
-                getActivity().getIntent().getStringExtra("Service name") + ":" +
+                getActivity().getIntent().getStringExtra("Service name") + ":" + "\n"+
                 getActivity().getIntent().getStringExtra("accountName"));
 
         signoutButton = view.findViewById(R.id.signoutButton);
