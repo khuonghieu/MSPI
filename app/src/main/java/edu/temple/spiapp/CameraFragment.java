@@ -25,7 +25,7 @@ public class CameraFragment extends Fragment {
         chooseCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://192.168.43.137:5000";
+                String url = "http://192.168.1.217:5000";
                 WebView viewCam = (WebView)getView().findViewById(R.id.webView);
                 viewCam.getSettings().setLoadsImagesAutomatically(true);
                 viewCam.getSettings().setJavaScriptEnabled(true);
