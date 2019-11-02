@@ -6,10 +6,8 @@
     android:orientation="vertical"
     tools:context=".VideoFragment" >
 
-    <TextView
-        android:id="@+id/textView2"
+    <ListView
+        android:id="@+id/videoList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="For videos"
-        android:textSize="30sp" />
+        android:layout_height="match_parent" />
 </LinearLayout>

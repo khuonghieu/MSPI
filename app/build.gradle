@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        compileOptions {
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
     buildTypes {
         release {
@@ -54,5 +57,7 @@ dependencies {
     //Picasso for image handling
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Video loading
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.6'
 }
 apply plugin: 'com.google.gms.google-services'
