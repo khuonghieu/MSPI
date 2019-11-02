@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,8 +29,8 @@ public class LogIn extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
-    Button googleLogIn;
-    Button githubLogIn;
+    RelativeLayout googleLogIn;
+    RelativeLayout githubLogIn;
 
     private FirebaseAuth mAuth;
 
@@ -43,7 +44,7 @@ public class LogIn extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleLogIn = findViewById(R.id.googleLogIn);
+        googleLogIn = findViewById(R.id.GoogleLogIn);
         googleLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +56,7 @@ public class LogIn extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //Github
-        githubLogIn = findViewById(R.id.githubLogIn);
+        githubLogIn = findViewById(R.id.GithubLogin);
         githubLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
