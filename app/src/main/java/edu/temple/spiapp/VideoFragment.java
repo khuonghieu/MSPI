@@ -1,17 +1,23 @@
 package edu.temple.spiapp;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,8 +34,10 @@ public class VideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
+
         final ListView videoList = view.findViewById(R.id.videoList);
         final ArrayList<Uri> videoUriList = new ArrayList<>();
+        final PlayerView playerView = view.findViewById(R.id.playerView);
         final ArrayList<String> videoNameList = new ArrayList<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/videos");
@@ -47,7 +55,7 @@ public class VideoFragment extends Fragment {
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            VideoAdapter videoAdapter = new VideoAdapter(getContext(),videoUriList,videoNameList);
+                            VideoAdapter videoAdapter = new VideoAdapter(getContext(),videoUriList,videoNameList, playerView);
                             videoList.setAdapter(videoAdapter);
                         }
                     });
