@@ -2,6 +2,8 @@ package edu.temple.spiapp;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -61,6 +63,8 @@ public class VideoAdapter extends BaseAdapter {
 
         PlayerView playerView = new PlayerView(this.context);
         playerView.setPlayer(player);
+        playerView.setLayoutParams(new PlayerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1200));
+
         // Produces DataSource instances through which media data is loaded.
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
                 Util.getUserAgent(context, "yourApplicationName"));
@@ -69,7 +73,7 @@ public class VideoAdapter extends BaseAdapter {
                 .createMediaSource(videoLinkArray.get(videoLinkArray.size()-position-1));
         // Prepare the player with the source.
         player.prepare(videoSource);
-        player.pla
+        player.setPlayWhenReady(false);
 
         TextView textView = new TextView(this.context);
         textView.setText(videoNameArray.get(videoNameArray.size() - position -1));
