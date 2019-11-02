@@ -104,10 +104,10 @@
             android:layout_width="273dp"
             android:layout_height="53dp"
             android:background="@drawable/background_border"
-            android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
             android:clickable="true"
             android:contextClickable="true"
             android:gravity="center"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +146,6 @@
                 android:layout_marginEnd="19dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/fui_ic_googleg_color_24dp"
-                android:foreground="@drawable/googleg_standard_color_18"
                 android:gravity="center"
                 android:textSize="20sp" />
         </RelativeLayout>
@@ -160,6 +159,7 @@
             android:clickable="true"
             android:contextClickable="true"
             android:gravity="center"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
