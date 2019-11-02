@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AccountFragment(), "account");
         adapter.addFragment(new CameraFragment(), "camera");
-        adapter.addFragment(new NotifFragment(), "notifications");
+        adapter.addFragment(new NotifFragment(), "noti");
         adapter.addFragment(new VideoFragment(),"videos");
         viewPager.setAdapter(adapter);
     }

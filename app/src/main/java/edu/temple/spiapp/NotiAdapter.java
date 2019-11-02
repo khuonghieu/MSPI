@@ -27,7 +27,7 @@ public class NotiAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return linkArray.size();
+        return Math.min(linkArray.size(), 10);
     }
 
     @Override
