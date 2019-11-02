@@ -39,6 +39,7 @@ public class VideoFragment extends Fragment {
         final ArrayList<Uri> videoUriList = new ArrayList<>();
         final PlayerView playerView = view.findViewById(R.id.playerView);
         final ArrayList<String> videoNameList = new ArrayList<>();
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/videos");
         listRef.list(5).addOnSuccessListener(new OnSuccessListener<ListResult>() {

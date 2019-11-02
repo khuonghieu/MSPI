@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -52,6 +51,7 @@ public class VideoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        final Uri videoUri = videoLinkArray.get(videoLinkArray.size()-position-1);
 
         LinearLayout linearLayout = new LinearLayout(this.context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -59,8 +59,27 @@ public class VideoAdapter extends BaseAdapter {
         TextView textView = new TextView(this.context);
         textView.setText(videoNameArray.get(videoNameArray.size() - position -1));
         textView.setTextSize(20);
-        linearLayout.addView(textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context);
+                playerView.setPlayer(player);
+                // Produces DataSource instances through which media data is loaded.
+                DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
+                        Util.getUserAgent(context, "MSPi"));
+                // This is the MediaSource representing the media to be played.
+                MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
+                        .createMediaSource(videoUri);
+                // Prepare the player with the source.
+                player.prepare(videoSource);
+                player.setPlayWhenReady(false);
+            }
+
+        });
+
+        linearLayout.addView(textView);
         return linearLayout;
     }
+
 }
