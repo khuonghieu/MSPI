@@ -25,8 +25,8 @@ public class CameraFragment extends Fragment {
         chooseCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://192.168.1.217:5000";
-                WebView viewCam = (WebView)getView().findViewById(R.id.webView);
+                String url = "https://mspi-a4b75.firebaseapp.com/livestream";
+                WebView viewCam = getView().findViewById(R.id.webView);
                 viewCam.getSettings().setLoadsImagesAutomatically(true);
                 viewCam.getSettings().setJavaScriptEnabled(true);
                 viewCam.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

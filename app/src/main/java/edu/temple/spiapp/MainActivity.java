@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new AccountFragment(), "account");
         adapter.addFragment(new CameraFragment(), "camera");
         adapter.addFragment(new NotifFragment(), "notifications");
+        adapter.addFragment(new VideoFragment(),"videos");
         viewPager.setAdapter(adapter);
     }
 }
