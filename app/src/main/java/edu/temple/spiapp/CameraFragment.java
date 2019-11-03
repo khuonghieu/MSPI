@@ -21,7 +21,6 @@ public class CameraFragment extends Fragment {
 
         Button chooseCam = view.findViewById(R.id.chooseCam);
 
-
         chooseCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +32,6 @@ public class CameraFragment extends Fragment {
                 viewCam.loadUrl(url);
             }
         });
-
 
         return view;
     }

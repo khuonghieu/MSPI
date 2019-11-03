@@ -17,11 +17,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
         setupViewPager(viewPager);
-
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AccountFragment(), "account");
         adapter.addFragment(new CameraFragment(), "camera");
-        adapter.addFragment(new NotifFragment(), "noti");
+        adapter.addFragment(new NotifFragment(), "notifications");
         adapter.addFragment(new VideoFragment(),"videos");
         viewPager.setAdapter(adapter);
     }
