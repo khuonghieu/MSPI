@@ -5,26 +5,54 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/userAva"
+            android:layout_width="206dp"
+            android:layout_height="match_parent"
+            android:fadingEdge="horizontal|vertical"
+            android:scaleType="centerCrop"
+            app:srcCompat="@color/fui_bgPhone" />
+
+        <ImageView
+            android:id="@+id/serviceIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/userText"
-        android:layout_width="318dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="286dp"
-        android:text="Will show account name"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/camList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camera list later" />
 
     <Button
         android:id="@+id/signoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/pinkRed"
         android:text="sign out"
         app:layout_constraintBottom_toTopOf="@+id/webView"
         app:layout_constraintEnd_toEndOf="parent"
