@@ -35,7 +35,7 @@ public class VideoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Math.min(videoLinkArray.size(),3);
+        return videoLinkArray.size();
     }
 
     @Override
