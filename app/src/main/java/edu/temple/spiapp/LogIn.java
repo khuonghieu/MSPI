@@ -59,9 +59,8 @@ public class LogIn extends AppCompatActivity {
         githubLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com",FirebaseAuth.getInstance());
+                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com",mAuth);
                 Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
-
                 if (pendingResultTask != null) {
                     // There's something already here! Finish the sign-in for your user.
                     pendingResultTask
@@ -70,9 +69,6 @@ public class LogIn extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(AuthResult authResult) {
                                             Intent intent = new Intent(LogIn.this, MainActivity.class);
-                                            intent.putExtra("Service name", "Github");
-                                            intent.putExtra("accountName", authResult.getUser()
-                                                    .getDisplayName());
                                             startActivity(intent);
                                         }
                                     })
@@ -91,9 +87,6 @@ public class LogIn extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(AuthResult authResult) {
                                             Intent intent = new Intent(LogIn.this, MainActivity.class);
-                                            intent.putExtra("Service name", "Github");
-                                            intent.putExtra("accountName", authResult.getUser()
-                                                    .getDisplayName());
                                             startActivity(intent);
                                         }
                                     })
