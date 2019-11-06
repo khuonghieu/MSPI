@@ -1,7 +1,6 @@
 package edu.temple.spiapp;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,15 +40,15 @@ public class AccountFragment extends Fragment {
         if(googleCurrentAcc!=null){
             Picasso.get().load(googleCurrentAcc.getPhotoUrl()).into(userAva);
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_googleg_color_24dp, null));
-            userName.setText(googleCurrentAcc.getDisplayName());
-            userEmail.setText(googleCurrentAcc.getEmail());
+            userName.setText("Name: " + googleCurrentAcc.getDisplayName());
+            userEmail.setText("Email: " + googleCurrentAcc.getEmail());
         }
         else if(githubCurrentAcc!=null){
             Picasso.get().load(githubCurrentAcc.getPhotoUrl()).into(userAva);
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp,null));
             serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub,null));
-            userName.setText(githubCurrentAcc.getDisplayName());
-            userEmail.setText(githubCurrentAcc.getEmail());
+            userName.setText("Name: " + githubCurrentAcc.getDisplayName());
+            userEmail.setText("Email: " + githubCurrentAcc.getEmail());
         }
         signoutButton = view.findViewById(R.id.signoutButton);
         signoutButton.setOnClickListener(new View.OnClickListener() {

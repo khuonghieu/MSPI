@@ -1,6 +1,7 @@
 package edu.temple.spiapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,11 @@ public class NotiAdapter extends BaseAdapter {
         }
         TextView textView = new TextView(this.context);
         textView.setText(nameArray.get(nameArray.size() - position -1));
+        textView.setTextSize(20);
+
         linearLayout.addView(imageView);
         linearLayout.addView(textView);
+        
         return linearLayout;
     }
 }
