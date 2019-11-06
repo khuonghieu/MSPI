@@ -19,19 +19,28 @@ public class CameraFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_fragment, container, false);
 
-        Button chooseCam = view.findViewById(R.id.chooseCam);
+        Button showStream = view.findViewById(R.id.showStream);
+        Button stopStream = view.findViewById(R.id.stopStream);
+        final WebView viewCam = view.findViewById(R.id.webView);
 
-        chooseCam.setOnClickListener(new View.OnClickListener() {
+        showStream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://mspi-a4b75.firebaseapp.com/livestream";
-                WebView viewCam = getView().findViewById(R.id.webView);
                 viewCam.getSettings().setLoadsImagesAutomatically(true);
                 viewCam.getSettings().setJavaScriptEnabled(true);
                 viewCam.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                 viewCam.loadUrl(url);
             }
         });
+        stopStream.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewCam.stopLoading();
+                viewCam.destroy();
+            }
+        });
+
 
         return view;
     }

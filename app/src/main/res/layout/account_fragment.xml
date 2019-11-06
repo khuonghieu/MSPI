@@ -5,60 +5,74 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="@color/DARK_BACKGROUND_COLOR">
 
         <ImageView
             android:id="@+id/userAva"
-            android:layout_width="206dp"
-            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="107dp"
+            android:layout_marginEnd="106dp"
             android:fadingEdge="horizontal|vertical"
-            android:scaleType="centerCrop"
-            app:srcCompat="@color/fui_bgPhone" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/serviceIcon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
             android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/DARK_BACKGROUND_COLOR"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <ListView
+            android:id="@+id/userCamList"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/signoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pinkRed"
+            android:text="sign out"
+            app:layout_constraintBottom_toTopOf="@+id/webView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.727"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.593" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/userEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/camList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Camera list later" />
-
-    <Button
-        android:id="@+id/signoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/pinkRed"
-        android:text="sign out"
-        app:layout_constraintBottom_toTopOf="@+id/webView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.593" />
 
 </LinearLayout>
