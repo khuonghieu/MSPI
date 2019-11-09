@@ -35,7 +35,7 @@ public class VideoFragment extends Fragment {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/videos");
-        listRef.list(5).addOnSuccessListener(new OnSuccessListener<ListResult>() {
+        listRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
                 for (StorageReference item : listResult.getItems()) {

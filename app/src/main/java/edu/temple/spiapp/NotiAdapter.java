@@ -42,6 +42,7 @@ public class NotiAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LinearLayout linearLayout = new LinearLayout(this.context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         ImageView imageView = new ImageView(this.context);
@@ -56,7 +57,7 @@ public class NotiAdapter extends BaseAdapter {
 
         linearLayout.addView(imageView);
         linearLayout.addView(textView);
-        
+
         return linearLayout;
     }
 }
