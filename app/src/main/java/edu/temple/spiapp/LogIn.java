@@ -169,7 +169,6 @@ public class LogIn extends AppCompatActivity {
             Toast.makeText(LogIn.this, "Failed google", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     public void onStart() {
         // Check if user is signed in (non-null) and update UI accordingly.
