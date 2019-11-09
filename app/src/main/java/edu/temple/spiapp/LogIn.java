@@ -26,8 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.OAuthProvider;
 
-import org.w3c.dom.Text;
-
 
 public class LogIn extends AppCompatActivity {
 
@@ -64,7 +62,7 @@ public class LogIn extends AppCompatActivity {
         githubLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com",mAuth);
+                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com", mAuth);
                 Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
                 if (pendingResultTask != null) {
                     // There's something already here! Finish the sign-in for your user.
@@ -169,6 +167,7 @@ public class LogIn extends AppCompatActivity {
             Toast.makeText(LogIn.this, "Failed google", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onStart() {
         // Check if user is signed in (non-null) and update UI accordingly.
