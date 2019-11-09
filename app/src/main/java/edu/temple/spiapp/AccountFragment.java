@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,8 +46,15 @@ public class AccountFragment extends Fragment {
         }
         else if(githubCurrentAcc!=null){
             Picasso.get().load(githubCurrentAcc.getPhotoUrl()).into(userAva);
-            serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp,null));
-            serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub,null));
+
+            if(githubCurrentAcc.getProviderId()=="firebase"){
+                serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_mail_white_24dp, null));
+                serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgPhone, null));
+            }
+            else {
+                serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp, null));
+                serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub, null));
+            }
             userName.setText("Name: " + githubCurrentAcc.getDisplayName());
             userEmail.setText("Email: " + githubCurrentAcc.getEmail());
         }
