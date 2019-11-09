@@ -25,12 +25,16 @@ public class VideoAdapter extends BaseAdapter {
     public ArrayList<Uri> videoLinkArray;
     public ArrayList<String> videoNameArray;
     public PlayerView playerView;
+    public SimpleExoPlayer simpleExoPlayer;
 
-    public VideoAdapter(Context context, ArrayList<Uri> videoLinkArray, ArrayList<String> videoNameArray, PlayerView playerView) {
+    public VideoAdapter(Context context, ArrayList<Uri> videoLinkArray,
+                        ArrayList<String> videoNameArray, PlayerView playerView,
+                        SimpleExoPlayer simpleExoPlayer) {
         this.context = context;
         this.videoLinkArray = videoLinkArray;
         this.videoNameArray = videoNameArray;
         this.playerView = playerView;
+        this.simpleExoPlayer = simpleExoPlayer;
     }
 
     @Override
@@ -63,8 +67,8 @@ public class VideoAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context);
-                playerView.setPlayer(player);
+                //Bind player to the playerView
+                playerView.setPlayer(simpleExoPlayer);
                 // Produces DataSource instances through which media data is loaded.
                 DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
                         Util.getUserAgent(context, "MSPi"));
@@ -72,8 +76,8 @@ public class VideoAdapter extends BaseAdapter {
                 MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                         .createMediaSource(videoUri);
                 // Prepare the player with the source.
-                player.prepare(videoSource);
-                player.setPlayWhenReady(false);
+                simpleExoPlayer.prepare(videoSource);
+                simpleExoPlayer.setPlayWhenReady(false);
             }
 
         });

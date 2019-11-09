@@ -16,7 +16,34 @@
         app:fastforward_increment="10000"
         app:resize_mode="fit"
         app:rewind_increment="10000"
-        app:show_timeout="1000" />
+        app:show_timeout="1000">
+
+    </com.google.android.exoplayer2.ui.PlayerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/setSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1x"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/speedSeekBar"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:max="6"
+            android:progress="3" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/videoList"
         android:layout_width="match_parent"
