@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="371dp"
         android:background="@color/DARK_BACKGROUND_COLOR">
 
         <ImageView
@@ -15,26 +15,44 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="107dp"
+            android:layout_marginTop="47dp"
             android:layout_marginEnd="106dp"
             android:fadingEdge="horizontal|vertical"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/serviceIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="71dp"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="168dp"
+            android:layout_marginTop="239dp"
+            android:layout_marginEnd="172dp"
+            android:layout_marginBottom="68dp"
             android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="151dp"
+            android:layout_marginEnd="143dp"
+            android:layout_marginBottom="16dp"
+            android:text="Signed in as: " />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="492dp"
         android:background="@color/DARK_BACKGROUND_COLOR"
         android:orientation="vertical">
 
@@ -64,7 +82,7 @@
         <Button
             android:id="@+id/signoutButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:background="@color/pinkRed"
             android:text="sign out"
             app:layout_constraintBottom_toTopOf="@+id/webView"
