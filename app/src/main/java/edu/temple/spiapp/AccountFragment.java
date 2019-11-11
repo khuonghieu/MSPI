@@ -49,12 +49,14 @@ public class AccountFragment extends Fragment {
             if(githubCurrentAcc.getProviderId()=="firebase"){
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_mail_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgPhone, null));
+                userName.setText("Name: "+githubCurrentAcc.getEmail()
+                        .substring(0,githubCurrentAcc.getEmail().indexOf('@')));
             }
             else {
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub, null));
+                userName.setText("Name: " + githubCurrentAcc.getDisplayName());
             }
-            userName.setText("Name: " + githubCurrentAcc.getDisplayName());
             userEmail.setText("Email: " + githubCurrentAcc.getEmail());
         }
         signoutButton = view.findViewById(R.id.signoutButton);
