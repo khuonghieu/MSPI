@@ -19,7 +19,7 @@
         tools:showIn="@layout/activity_log_in">
 
         <EditText
-            android:id="@+id/loginPassword2"
+            android:id="@+id/signUpPassword2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -63,7 +63,7 @@
             app:srcCompat="@drawable/mspi" />
 
         <EditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/signUpEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -76,7 +76,7 @@
             app:layout_constraintVertical_bias="0.569" />
 
         <EditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/signUpPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -89,7 +89,7 @@
             app:layout_constraintVertical_bias="0.66" />
 
         <Button
-            android:id="@+id/emailButton"
+            android:id="@+id/signUpButton"
             android:layout_width="117dp"
             android:layout_height="59dp"
             android:backgroundTint="@android:color/holo_green_dark"
