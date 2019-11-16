@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0);
     }
 
-    private void setupViewPager(ViewPager viewPager){
+    private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AccountFragment(), "account");
         adapter.addFragment(new CameraFragment(), "camera");
         adapter.addFragment(new NotifFragment(), "notifications");
-        adapter.addFragment(new VideoFragment(),"videos");
+        adapter.addFragment(new VideoFragment(), "videos");
         viewPager.setAdapter(adapter);
     }
 }

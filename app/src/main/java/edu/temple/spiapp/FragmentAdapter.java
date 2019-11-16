@@ -18,10 +18,11 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    public void addFragment(Fragment fragment, String fragmentTitle){
+    public void addFragment(Fragment fragment, String fragmentTitle) {
         fragmentList.add(fragment);
         fragmentTitleList.add(fragmentTitle);
     }
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -34,7 +35,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position){
+    public CharSequence getPageTitle(int position) {
         return fragmentTitleList.get(position);
     }
 }

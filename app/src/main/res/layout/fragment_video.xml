@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/DARK_BACKGROUND_COLOR"
     android:orientation="vertical"
-    tools:context=".VideoFragment"
-    android:background="@color/DARK_BACKGROUND_COLOR">
+    tools:context=".VideoFragment">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:background="#000"
         app:fastforward_increment="10000"
         app:resize_mode="fit"
@@ -44,8 +44,9 @@
             android:progress="3" />
     </LinearLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videoList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

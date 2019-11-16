@@ -15,12 +15,6 @@
         android:text="Choose your camera"
         android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/chooseCamSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:visibility="visible" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

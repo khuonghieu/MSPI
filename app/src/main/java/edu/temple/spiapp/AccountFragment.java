@@ -37,22 +37,20 @@ public class AccountFragment extends Fragment {
         TextView userName = view.findViewById(R.id.userName);
         TextView userEmail = view.findViewById(R.id.userEmail);
 
-        if(googleCurrentAcc!=null){
+        if (googleCurrentAcc != null) {
             Picasso.get().load(googleCurrentAcc.getPhotoUrl()).into(userAva);
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_googleg_color_24dp, null));
             userName.setText("Name: " + googleCurrentAcc.getDisplayName());
             userEmail.setText("Email: " + googleCurrentAcc.getEmail());
-        }
-        else if(githubCurrentAcc!=null){
+        } else if (githubCurrentAcc != null) {
             Picasso.get().load(githubCurrentAcc.getPhotoUrl()).into(userAva);
 
-            if(githubCurrentAcc.getProviderId()=="firebase"){
+            if (githubCurrentAcc.getProviderId() == "firebase") {
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_mail_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgPhone, null));
-                userName.setText("Name: "+githubCurrentAcc.getEmail()
-                        .substring(0,githubCurrentAcc.getEmail().indexOf('@')));
-            }
-            else {
+                userName.setText("Name: " + githubCurrentAcc.getEmail()
+                        .substring(0, githubCurrentAcc.getEmail().indexOf('@')));
+            } else {
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub, null));
                 userName.setText("Name: " + githubCurrentAcc.getDisplayName());

@@ -40,25 +40,25 @@ public class NotifFragment extends Fragment {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/images");
         listRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                @Override
-                public void onSuccess(ListResult listResult) {
-                    for (StorageReference item : listResult.getItems()) {
-                        // All the items under listRef.
-                        nameList.add(item.getName());
-                        item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                imageUriList.add(uri);
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-                                NotiAdapter notiAdapter = new NotiAdapter(getContext(),imageUriList,nameList);
-                                imageList.setAdapter(notiAdapter);
-                            }
-                        });
-                    }
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    // All the items under listRef.
+                    nameList.add(item.getName());
+                    item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imageUriList.add(uri);
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            NotiAdapter notiAdapter = new NotiAdapter(getContext(), imageUriList, nameList);
+                            imageList.setAdapter(notiAdapter);
+                        }
+                    });
                 }
+            }
         });
         return view;
     }

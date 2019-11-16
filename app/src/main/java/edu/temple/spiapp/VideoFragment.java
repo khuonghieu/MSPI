@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -33,7 +35,11 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
-        final ListView videoList = view.findViewById(R.id.videoList);
+        final RecyclerView videoList = view.findViewById(R.id.videoList);
+        videoList.setHasFixedSize(true);
+        videoList.setLayoutManager(new LinearLayoutManager(getContext()));
+        videoList.setItemAnimator(new DefaultItemAnimator());
+
         final ArrayList<Uri> videoUriList = new ArrayList<>();
         final PlayerView playerView = view.findViewById(R.id.playerView);
         final ArrayList<String> videoNameList = new ArrayList<>();
@@ -58,7 +64,7 @@ public class VideoFragment extends Fragment {
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            VideoAdapter videoAdapter = new VideoAdapter(getContext(),videoUriList,videoNameList, playerView, player);
+                            VideoAdapterCard videoAdapter = new VideoAdapterCard(getContext(), videoUriList, videoNameList, playerView, player);
                             videoList.setAdapter(videoAdapter);
                         }
                     });
@@ -67,21 +73,23 @@ public class VideoFragment extends Fragment {
         });
 
         //Seekbar to control video speed
-        final double[] speed = {0.25,0.5,0.75,1.0,1.25,1.5,1.75};
+        final double[] speed = {0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75};
         speedSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser){
-                    player.setPlaybackParameters(new PlaybackParameters((float)speed[progress]));
-                    setSpeed.setText(String.valueOf(speed[progress]) +"x");
+                if (fromUser) {
+                    player.setPlaybackParameters(new PlaybackParameters((float) speed[progress]));
+                    setSpeed.setText(String.valueOf(speed[progress]) + "x");
                 }
             }
+
             //Pause when choosing speed
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 player.setPlayWhenReady(false);
                 player.getPlaybackState();
             }
+
             //Resume when done choosing speed
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {

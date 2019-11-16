@@ -56,12 +56,12 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.MyViewHolder> 
         TextView notiName = holder.notiName;
         ImageView notiImage = holder.notiImage;
 
-        notiName.setText(nameArray.get(nameArray.size()-position-1));
-        Picasso.get().load(linkArray.get(linkArray.size()-position-1)).into(notiImage);
+        notiName.setText(nameArray.get(nameArray.size() - position - 1));
+        Picasso.get().load(linkArray.get(linkArray.size() - position - 1)).into(notiImage);
     }
 
     @Override
     public int getItemCount() {
-        return Math.min(linkArray.size(),15);
+        return Math.min(linkArray.size(), 15);
     }
 }

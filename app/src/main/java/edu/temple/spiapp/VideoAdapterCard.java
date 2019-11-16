@@ -2,11 +2,14 @@ package edu.temple.spiapp;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -18,7 +21,7 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 
-public class VideoAdapter extends BaseAdapter {
+public class VideoAdapterCard extends RecyclerView.Adapter<VideoAdapterCard.VideoViewHolder> {
 
     public Context context;
     public ArrayList<Uri> videoLinkArray;
@@ -26,9 +29,9 @@ public class VideoAdapter extends BaseAdapter {
     public PlayerView playerView;
     public SimpleExoPlayer simpleExoPlayer;
 
-    public VideoAdapter(Context context, ArrayList<Uri> videoLinkArray,
-                        ArrayList<String> videoNameArray, PlayerView playerView,
-                        SimpleExoPlayer simpleExoPlayer) {
+    public VideoAdapterCard(Context context, ArrayList<Uri> videoLinkArray,
+                            ArrayList<String> videoNameArray, PlayerView playerView,
+                            SimpleExoPlayer simpleExoPlayer) {
         this.context = context;
         this.videoLinkArray = videoLinkArray;
         this.videoNameArray = videoNameArray;
@@ -36,36 +39,35 @@ public class VideoAdapter extends BaseAdapter {
         this.simpleExoPlayer = simpleExoPlayer;
     }
 
-    @Override
-    public int getCount() {
-        return Math.min(videoLinkArray.size(),5);
+    public static class VideoViewHolder extends RecyclerView.ViewHolder {
+        TextView videoName;
+        ImageButton playVideo;
+
+        public VideoViewHolder(View itemView) {
+            super(itemView);
+            this.videoName = (TextView) itemView.findViewById(R.id.videoName);
+            this.playVideo = (ImageButton) itemView.findViewById(R.id.playVideo);
+        }
     }
 
+    @NonNull
     @Override
-    public Object getItem(int position) {
-        return videoLinkArray.get(videoLinkArray.size()-position);
+    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.video_card_noti, parent, false);
+        VideoViewHolder myViewHolder = new VideoViewHolder(view);
+        return myViewHolder;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    public void onBindViewHolder(final VideoViewHolder holder, int position) {
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        final Uri videoUri = videoLinkArray.get(videoLinkArray.size()-position-1);
-
-        LinearLayout linearLayout = new LinearLayout(this.context);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        TextView textView = new TextView(this.context);
-        textView.setText(videoNameArray.get(videoNameArray.size() - position -1));
-        textView.setTextSize(20);
-        textView.setOnClickListener(new View.OnClickListener() {
+        final Uri videoUri = videoLinkArray.get(videoLinkArray.size() - position - 1);
+        TextView videoName = holder.videoName;
+        videoName.setText(videoNameArray.get(videoNameArray.size() - position - 1));
+        ImageButton playVideo = holder.playVideo;
+        playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Bind player to the playerView
                 playerView.setPlayer(simpleExoPlayer);
                 // Produces DataSource instances through which media data is loaded.
@@ -78,11 +80,13 @@ public class VideoAdapter extends BaseAdapter {
                 simpleExoPlayer.prepare(videoSource);
                 simpleExoPlayer.setPlayWhenReady(false);
             }
-
         });
 
-        linearLayout.addView(textView);
-        return linearLayout;
+
     }
 
+    @Override
+    public int getItemCount() {
+        return Math.min(10, videoLinkArray.size());
+    }
 }
