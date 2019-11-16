@@ -22,12 +22,14 @@
                 android:id="@+id/playVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/fui_bgGitHub"
                 app:srcCompat="@drawable/exo_controls_play" />
 
             <TextView
                 android:id="@+id/videoName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="Video Name"
                 android:textSize="18sp" />
         </LinearLayout>

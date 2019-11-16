@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 public class AccountFragment extends Fragment {
-    private final static String TAG = "AccountFragment";
+    private final static String TAG = "AccFrag";
     Button signoutButton;
 
     @Nullable

@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class CameraFragment extends Fragment {
-    private final static String TAG = "CameraFragment";
+    private final static String TAG = "CamFrag";
 
     @Nullable
     @Override

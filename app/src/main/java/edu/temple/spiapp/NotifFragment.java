@@ -1,5 +1,6 @@
 package edu.temple.spiapp;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class NotifFragment extends Fragment {
-    private final static String TAG = "AccountFragment";
+    private final static String TAG = "NotiFrag";
 
     @Nullable
     @Override
@@ -63,3 +65,5 @@ public class NotifFragment extends Fragment {
         return view;
     }
 }
+
+

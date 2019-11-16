@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class VideoFragment extends Fragment {
 
-
+    private final static String TAG = "VidFrag";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

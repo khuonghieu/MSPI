@@ -65,6 +65,7 @@ public class VideoAdapterCard extends RecyclerView.Adapter<VideoAdapterCard.Vide
         TextView videoName = holder.videoName;
         videoName.setText(videoNameArray.get(videoNameArray.size() - position - 1));
         ImageButton playVideo = holder.playVideo;
+
         playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
