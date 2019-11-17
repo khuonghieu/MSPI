@@ -2,6 +2,7 @@ package edu.temple.spiapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,20 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AccountFragment extends Fragment {
     private final static String TAG = "AccFrag";
@@ -29,7 +41,11 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.account_fragment, container, false);
 
-        GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
+        // Access a Cloud Firestore instance from your Activity
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //Look for existing user
+        final GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
         FirebaseUser githubCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
 
         ImageView userAva = view.findViewById(R.id.userAva);
@@ -42,6 +58,45 @@ public class AccountFragment extends Fragment {
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_googleg_color_24dp, null));
             userName.setText("Name: " + googleCurrentAcc.getDisplayName());
             userEmail.setText("Email: " + googleCurrentAcc.getEmail());
+
+            DocumentReference docIdRef = db.collection("users").document(googleCurrentAcc.getId());
+            docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d("Document", "Document exists!");
+                        } else {
+                            Log.d("Document", "Document does not exist!");
+                            //Create data
+                            Map<String, Object> docData = new HashMap<>();
+                            ArrayList<String> cameraList = new ArrayList<>();
+                            docData.put("cameraIds",cameraList);
+                            docData.put("email",googleCurrentAcc.getEmail());
+
+                            //Add document to firestore
+                            db.collection("users").document(googleCurrentAcc.getId())
+                                    .set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("AddDoc", "DocumentSnapshot successfully written!");
+                                }
+                            })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("AddDoc", "Error writing document", e);
+                                        }
+                                    });
+                        }
+                    } else {
+                        Log.d("Document", "Failed with: ", task.getException());
+                    }
+                }
+            });
+
+
         } else if (githubCurrentAcc != null) {
             Picasso.get().load(githubCurrentAcc.getPhotoUrl()).into(userAva);
 

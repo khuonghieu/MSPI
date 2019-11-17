@@ -25,6 +25,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.OAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LogIn extends AppCompatActivity {
@@ -178,12 +185,19 @@ public class LogIn extends AppCompatActivity {
 
     @Override
     public void onStart() {
+
+
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        GoogleSignInAccount currentGoogleUser = GoogleSignIn.getLastSignedInAccount(this);
+        final GoogleSignInAccount currentGoogleUser = GoogleSignIn.getLastSignedInAccount(this);
+
         if (currentUser != null) {
+            //Github or Email user already existed
             startActivity(new Intent(LogIn.this, MainActivity.class));
-        } else if (currentGoogleUser != null) {
+        }
+        else if (currentGoogleUser != null) {
+            //Google user already existed
             startActivity(new Intent(LogIn.this, MainActivity.class));
         }
         super.onStart();
