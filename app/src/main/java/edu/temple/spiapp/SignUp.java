@@ -21,14 +21,15 @@ public class SignUp extends AppCompatActivity {
 
     public EditText emailID, pswd, pswd2;
     Button btnSignUp;
-    TextView signIn;
     FirebaseAuth firebaseAuth;
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         emailID = findViewById(R.id.signUpEmail);
         pswd = findViewById(R.id.signUpPassword);

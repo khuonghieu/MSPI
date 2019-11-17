@@ -133,6 +133,14 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
+        Button signUpButton = findViewById(R.id.signUpButton);
+        signUpButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(LogIn.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void googleSignIn() {
