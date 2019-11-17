@@ -18,19 +18,6 @@
         tools:context=".LogIn"
         tools:showIn="@layout/activity_log_in">
 
-        <EditText
-            android:id="@+id/signUpPassword2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="confirm password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.743" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="398dp"
@@ -96,10 +83,9 @@
             android:text="Sign Up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.847" />
+            app:layout_constraintVertical_bias="0.782" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
