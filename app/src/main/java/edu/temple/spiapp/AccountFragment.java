@@ -1,7 +1,10 @@
 package edu.temple.spiapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,15 +30,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AccountFragment extends Fragment {
     private final static String TAG = "AccFrag";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     Button signoutButton;
+    ImageView pictureView;
 
     @Nullable
     @Override
@@ -52,6 +63,59 @@ public class AccountFragment extends Fragment {
         ImageView serviceIcon = view.findViewById(R.id.serviceIcon);
         TextView userName = view.findViewById(R.id.userName);
         TextView userEmail = view.findViewById(R.id.userEmail);
+
+        //User take picture for face training
+        pictureView = view.findViewById(R.id.pictureView);
+        final Button takePicture = view.findViewById(R.id.takePicture);
+        Button uploadPicture = view.findViewById(R.id.uploadPicture);
+
+
+        //Open a camera activity to take picture of the face
+        takePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+        //Upload image to firebase
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference trainingRef = null;
+        if(googleCurrentAcc!=null){
+            StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
+            trainingRef = userRef.child("training/"+googleCurrentAcc.getGivenName()+".jpg");
+        }
+        else if(githubCurrentAcc !=null){
+            StorageReference userRef = firebaseStorage.getReference().child(githubCurrentAcc.getUid());
+            trainingRef = userRef.child("training/"+githubCurrentAcc.getDisplayName()+".jpg");
+        }
+
+        final StorageReference finalTrainingRef = trainingRef;
+        uploadPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the data from an ImageView as bytes
+                pictureView.setDrawingCacheEnabled(true);
+                pictureView.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) pictureView.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                UploadTask uploadTask = finalTrainingRef.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getContext(), "Failed Uploading", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getContext(), taskSnapshot.getMetadata().getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+
 
         if (googleCurrentAcc != null) {
             Picasso.get().load(googleCurrentAcc.getPhotoUrl()).into(userAva);
@@ -136,4 +200,25 @@ public class AccountFragment extends Fragment {
         });
         return view;
     }
+
+    //Camera methods
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            pictureView.setImageBitmap(imageBitmap);
+        }
+        else{
+            Toast.makeText(getContext(), "Fail Image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }
