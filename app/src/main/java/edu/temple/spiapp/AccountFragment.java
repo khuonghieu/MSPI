@@ -109,7 +109,7 @@ public class AccountFragment extends Fragment {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getContext(), taskSnapshot.getMetadata().getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), taskSnapshot.getMetadata().getPath(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
