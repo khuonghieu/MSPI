@@ -2,6 +2,7 @@ package edu.temple.spiapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
     public EditText emailID, pswd;
     Button btnSignUp;
     FirebaseAuth firebaseAuth;
-
-
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailId = emailID.getText().toString();
+                final String emailId = emailID.getText().toString();
                 String paswd = pswd.getText().toString();
                 if (emailId.isEmpty()) {
                     emailID.setError("Provide your Email first!");
@@ -58,6 +66,26 @@ public class SignUp extends AppCompatActivity {
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
+                                Map<String, Object> newUser = new HashMap<>();
+                                newUser.put("email", emailId);
+                                newUser.put("firstName", "test First Name");
+                                newUser.put("lastName", "test Last Name");
+
+                                db.collection("users").document(currentUser.getUid())
+                                        .set(newUser)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("AddDocTest", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("AddDocTest", "Error writing document", e);
+                                            }
+                                        });
+
                                 startActivity(new Intent(SignUp.this, MainActivity.class));
                             }
                         }
