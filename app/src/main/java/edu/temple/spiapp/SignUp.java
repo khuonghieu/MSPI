@@ -20,12 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    public EditText emailID, pswd;
+    public EditText emailID, pswd, firstName, lastName;
     Button btnSignUp;
     FirebaseAuth firebaseAuth;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -39,6 +40,8 @@ public class SignUp extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         emailID = findViewById(R.id.signUpEmail);
         pswd = findViewById(R.id.signUpPassword);
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
         btnSignUp = findViewById(R.id.signUpButton);
 
 
@@ -67,9 +70,11 @@ public class SignUp extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 Map<String, Object> newUser = new HashMap<>();
+                                newUser.put("cameraIds",new ArrayList<String>());
                                 newUser.put("email", emailId);
-                                newUser.put("firstName", "test First Name");
-                                newUser.put("lastName", "test Last Name");
+                                newUser.put("familiarFaces",new ArrayList<String>());
+                                newUser.put("firstName", firstName.getText().toString());
+                                newUser.put("lastName", lastName.getText().toString());
 
                                 db.collection("users").document(currentUser.getUid())
                                         .set(newUser)

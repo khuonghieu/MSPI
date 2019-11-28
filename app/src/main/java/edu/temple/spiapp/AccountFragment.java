@@ -135,9 +135,11 @@ public class AccountFragment extends Fragment {
                             Log.d("Document", "Document does not exist!");
                             //Create data
                             Map<String, Object> docData = new HashMap<>();
-                            ArrayList<String> cameraList = new ArrayList<>();
-                            docData.put("cameraIds",cameraList);
+                            docData.put("cameraIds",new ArrayList<String>());
                             docData.put("email",googleCurrentAcc.getEmail());
+                            docData.put("familiarFaces",new ArrayList<String>());
+                            docData.put("firstName",googleCurrentAcc.getGivenName());
+                            docData.put("lastName",googleCurrentAcc.getFamilyName());
 
                             //Add document to firestore
                             db.collection("users").document(googleCurrentAcc.getId())
