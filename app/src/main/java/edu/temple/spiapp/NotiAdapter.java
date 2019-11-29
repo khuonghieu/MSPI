@@ -28,8 +28,8 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.MyViewHolder> 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            this.notiImage = (ImageView) itemView.findViewById(R.id.notiImage);
-            this.notiName = (TextView) itemView.findViewById(R.id.notiName);
+            this.notiImage = itemView.findViewById(R.id.notiImage);
+            this.notiName = itemView.findViewById(R.id.notiName);
         }
     }
 
@@ -52,12 +52,18 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         TextView notiName = holder.notiName;
-        ImageView notiImage = holder.notiImage;
+        final ImageView notiImage = holder.notiImage;
+        final int finalPos = position;
 
         notiName.setText(nameArray.get(nameArray.size() - position - 1));
-        Picasso.get().load(linkArray.get(linkArray.size() - position - 1)).into(notiImage);
+        new Runnable() {
+            @Override
+            public void run() {
+                Picasso.get().load(linkArray.get(linkArray.size() - finalPos - 1)).into(notiImage);
+            }
+        }.run();
     }
 
     @Override

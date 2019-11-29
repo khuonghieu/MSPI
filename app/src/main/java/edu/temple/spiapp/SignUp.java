@@ -59,8 +59,8 @@ public class SignUp extends AppCompatActivity {
                 } else if (emailId.isEmpty() && paswd.isEmpty()) {
                     Toast.makeText(SignUp.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
                 } else if (!(emailId.isEmpty() && paswd.isEmpty())) {
-                    firebaseAuth.createUserWithEmailAndPassword(emailId, paswd).addOnCompleteListener(SignUp.this, new OnCompleteListener() {
-
+                    firebaseAuth.createUserWithEmailAndPassword(emailId, paswd)
+                            .addOnCompleteListener(SignUp.this, new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
 
@@ -91,7 +91,6 @@ public class SignUp extends AppCompatActivity {
                                                 Log.w("AddDocTest", "Error writing document", e);
                                             }
                                         });
-
                                 startActivity(new Intent(SignUp.this, MainActivity.class));
                             }
                         }

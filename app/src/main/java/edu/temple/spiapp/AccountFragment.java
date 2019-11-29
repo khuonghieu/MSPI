@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,21 +87,18 @@ public class AccountFragment extends Fragment {
             }
         });
         //Upload image to firebase
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference trainingRef = null;
-        if(googleCurrentAcc!=null){
-            StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
-            trainingRef = userRef.child("training/"+ (int)(Math.random() * 1000000) +".jpg");
-        }
-        else if(firebaseCurrentAcc !=null){
-            StorageReference userRef = firebaseStorage.getReference().child(firebaseCurrentAcc.getUid());
-            trainingRef = userRef.child("training/"+ (int)(Math.random() * 1000000) +".jpg");
-        }
-
-        final StorageReference finalTrainingRef = trainingRef;
+        final FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StorageReference trainingRef = null;
+                if (googleCurrentAcc != null) {
+                    StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
+                    trainingRef = userRef.child("training/" + (int) (Math.random() * 1000000) + ".jpg");
+                } else if (firebaseCurrentAcc != null) {
+                    StorageReference userRef = firebaseStorage.getReference().child(firebaseCurrentAcc.getUid());
+                    trainingRef = userRef.child("training/" + (int) (Math.random() * 1000000) + ".jpg");
+                }
                 // Get the data from an ImageView as bytes
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
@@ -111,7 +107,7 @@ public class AccountFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] data = baos.toByteArray();
 
-                UploadTask uploadTask = finalTrainingRef.putBytes(data);
+                UploadTask uploadTask = trainingRef.putBytes(data);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
@@ -121,7 +117,7 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                         Toast.makeText(getContext(), taskSnapshot.getMetadata().getPath(), Toast.LENGTH_SHORT).show();
-                        if(googleCurrentAcc!=null){
+                        if (googleCurrentAcc != null) {
                             final DocumentReference docIdRef = db.collection("users").document(googleCurrentAcc.getId());
                             db.runTransaction(new Transaction.Function<Void>() {
                                 @Override
@@ -147,8 +143,7 @@ public class AccountFragment extends Fragment {
                                     Log.w(TAG, "Transaction failure.", e);
                                 }
                             });
-                        }
-                        else if(firebaseCurrentAcc!=null){
+                        } else if (firebaseCurrentAcc != null) {
                             final DocumentReference docIdRef2 = db.collection("users").document(firebaseCurrentAcc.getUid());
                             db.runTransaction(new Transaction.Function<Void>() {
                                 @Override
@@ -181,7 +176,6 @@ public class AccountFragment extends Fragment {
         });
 
 
-
         if (googleCurrentAcc != null) {
             Picasso.get().load(googleCurrentAcc.getPhotoUrl()).into(userAva);
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_googleg_color_24dp, null));
@@ -200,11 +194,11 @@ public class AccountFragment extends Fragment {
                             Log.d("Document", "Document does not exist!");
                             //Create data
                             Map<String, Object> docData = new HashMap<>();
-                            docData.put("cameraIds",new ArrayList<String>());
-                            docData.put("email",googleCurrentAcc.getEmail());
-                            docData.put("familiarFaces",new ArrayList<String>());
-                            docData.put("firstName",googleCurrentAcc.getGivenName());
-                            docData.put("lastName",googleCurrentAcc.getFamilyName());
+                            docData.put("cameraIds", new ArrayList<String>());
+                            docData.put("email", googleCurrentAcc.getEmail());
+                            docData.put("familiarFaces", new ArrayList<String>());
+                            docData.put("firstName", googleCurrentAcc.getGivenName());
+                            docData.put("lastName", googleCurrentAcc.getFamilyName());
 
                             //Add document to firestore
                             db.collection("users").document(googleCurrentAcc.getId())
@@ -292,6 +286,7 @@ public class AccountFragment extends Fragment {
 
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
@@ -305,7 +300,7 @@ public class AccountFragment extends Fragment {
         // Create an image file name
         File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                String.valueOf((int)(Math.random()*1000000)),  /* prefix */
+                String.valueOf((int) (Math.random() * 1000000)),  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
@@ -313,6 +308,7 @@ public class AccountFragment extends Fragment {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPhotoPath);
@@ -320,6 +316,7 @@ public class AccountFragment extends Fragment {
         mediaScanIntent.setData(contentUri);
         getContext().sendBroadcast(mediaScanIntent);
     }
+
     private void setPic() {
         // Get the dimensions of the View
         int targetW = pictureView.getWidth();
@@ -333,7 +330,7 @@ public class AccountFragment extends Fragment {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -344,7 +341,7 @@ public class AccountFragment extends Fragment {
     }
 
     public static Bitmap scaleDown(Bitmap realImage) {
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, 640,480,false);
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, 640, 480, false);
         return newBitmap;
     }
 }
