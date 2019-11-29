@@ -3,7 +3,6 @@ package edu.temple.spiapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,8 +55,7 @@ public class AccountFragment extends Fragment {
 
     Button signoutButton;
     ImageView pictureView;
-    String currentPhotoPath;
-    EditText fileName;
+    public String currentPhotoPath;
 
     @Nullable
     @Override
@@ -67,13 +67,12 @@ public class AccountFragment extends Fragment {
 
         //Look for existing user
         final GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
-        FirebaseUser githubCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser firebaseCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
 
         ImageView userAva = view.findViewById(R.id.userAva);
         ImageView serviceIcon = view.findViewById(R.id.serviceIcon);
         TextView userName = view.findViewById(R.id.userName);
         TextView userEmail = view.findViewById(R.id.userEmail);
-        fileName = view.findViewById(R.id.fileName);
 
         //User take picture for face training
         pictureView = view.findViewById(R.id.pictureView);
@@ -93,11 +92,11 @@ public class AccountFragment extends Fragment {
         StorageReference trainingRef = null;
         if(googleCurrentAcc!=null){
             StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
-            trainingRef = userRef.child("training/"+googleCurrentAcc.getGivenName()+".jpg");
+            trainingRef = userRef.child("training/"+ (int)(Math.random() * 1000000) +".jpg");
         }
-        else if(githubCurrentAcc !=null){
-            StorageReference userRef = firebaseStorage.getReference().child(githubCurrentAcc.getUid());
-            trainingRef = userRef.child("training/"+fileName.getText().toString()+".jpg");
+        else if(firebaseCurrentAcc !=null){
+            StorageReference userRef = firebaseStorage.getReference().child(firebaseCurrentAcc.getUid());
+            trainingRef = userRef.child("training/"+ (int)(Math.random() * 1000000) +".jpg");
         }
 
         final StorageReference finalTrainingRef = trainingRef;
@@ -120,9 +119,62 @@ public class AccountFragment extends Fragment {
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                         Toast.makeText(getContext(), taskSnapshot.getMetadata().getPath(), Toast.LENGTH_SHORT).show();
+                        if(googleCurrentAcc!=null){
+                            final DocumentReference docIdRef = db.collection("users").document(googleCurrentAcc.getId());
+                            db.runTransaction(new Transaction.Function<Void>() {
+                                @Override
+                                public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                                    DocumentSnapshot snapshot = transaction.get(docIdRef);
 
+                                    // Note: this could be done without a transaction
+                                    //       by updating the population using FieldValue.increment()
+                                    ArrayList<String> familiarFaces = (ArrayList<String>) snapshot.get("familiarFaces");
+                                    familiarFaces.add(taskSnapshot.getMetadata().getName());
+                                    transaction.update(docIdRef, "familiarFaces", familiarFaces);
+                                    // Success
+                                    return null;
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "Transaction success!");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Transaction failure.", e);
+                                }
+                            });
+                        }
+                        else if(firebaseCurrentAcc!=null){
+                            final DocumentReference docIdRef2 = db.collection("users").document(firebaseCurrentAcc.getUid());
+                            db.runTransaction(new Transaction.Function<Void>() {
+                                @Override
+                                public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                                    DocumentSnapshot snapshot = transaction.get(docIdRef2);
+
+                                    // Note: this could be done without a transaction
+                                    //       by updating the population using FieldValue.increment()
+                                    ArrayList<String> familiarFaces = (ArrayList<String>) snapshot.get("familiarFaces");
+                                    familiarFaces.add(taskSnapshot.getMetadata().getName());
+                                    transaction.update(docIdRef2, "familiarFaces", familiarFaces);
+                                    // Success
+                                    return null;
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "Transaction success!");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Transaction failure.", e);
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -176,20 +228,20 @@ public class AccountFragment extends Fragment {
             });
 
 
-        } else if (githubCurrentAcc != null) {
-            Picasso.get().load(githubCurrentAcc.getPhotoUrl()).into(userAva);
+        } else if (firebaseCurrentAcc != null) {
+            Picasso.get().load(firebaseCurrentAcc.getPhotoUrl()).into(userAva);
 
-            if (githubCurrentAcc.getProviderId() == "firebase") {
+            if (firebaseCurrentAcc.getProviderId() == "firebase") {
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_mail_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgPhone, null));
-                userName.setText("Name: " + githubCurrentAcc.getEmail()
-                        .substring(0, githubCurrentAcc.getEmail().indexOf('@')));
+                userName.setText("Name: " + firebaseCurrentAcc.getEmail()
+                        .substring(0, firebaseCurrentAcc.getEmail().indexOf('@')));
             } else {
                 serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_github_white_24dp, null));
                 serviceIcon.setBackgroundTintList(getResources().getColorStateList(R.color.fui_bgGitHub, null));
-                userName.setText("Name: " + githubCurrentAcc.getDisplayName());
+                userName.setText("Name: " + firebaseCurrentAcc.getDisplayName());
             }
-            userEmail.setText("Email: " + githubCurrentAcc.getEmail());
+            userEmail.setText("Email: " + firebaseCurrentAcc.getEmail());
         }
         signoutButton = view.findViewById(R.id.signoutButton);
         signoutButton.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +305,7 @@ public class AccountFragment extends Fragment {
         // Create an image file name
         File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                String.valueOf(fileName.getText()),  /* prefix */
+                String.valueOf((int)(Math.random()*1000000)),  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
