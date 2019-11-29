@@ -30,7 +30,7 @@ public class SignUp extends AppCompatActivity {
     Button btnSignUp;
     FirebaseAuth firebaseAuth;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +69,7 @@ public class SignUp extends AppCompatActivity {
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                 Map<String, Object> newUser = new HashMap<>();
                                 newUser.put("cameraIds",new ArrayList<String>());
                                 newUser.put("email", emailId);

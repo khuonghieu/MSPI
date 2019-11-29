@@ -6,15 +6,6 @@
     android:orientation="vertical"
     android:background="@color/DARK_BACKGROUND_COLOR">
 
-    <TextView
-        android:id="@+id/ChooseYourCam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/BACKGROUND_COLOR"
-        android:gravity="center"
-        android:text="Choose your camera"
-        android:textSize="24sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
