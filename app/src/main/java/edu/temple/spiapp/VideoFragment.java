@@ -18,9 +18,13 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -49,7 +53,15 @@ public class VideoFragment extends Fragment {
         SeekBar speedSeekBar = view.findViewById(R.id.speedSeekBar);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/videos");
+        final GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
+        final FirebaseUser firebaseCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
+        StorageReference listRef=null;
+        if(googleCurrentAcc!=null){
+            listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/"+googleCurrentAcc.getId()+"/videos");
+        }
+        else if(firebaseCurrentAcc!=null){
+            listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/"+firebaseCurrentAcc.getUid()+"/videos");
+        }
         listRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {

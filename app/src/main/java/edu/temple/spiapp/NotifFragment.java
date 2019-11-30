@@ -12,9 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +42,15 @@ public class NotifFragment extends Fragment {
         final ArrayList<String> nameList = new ArrayList<>();
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/images");
+        final GoogleSignInAccount googleCurrentAcc = GoogleSignIn.getLastSignedInAccount(getContext());
+        final FirebaseUser firebaseCurrentAcc = FirebaseAuth.getInstance().getCurrentUser();
+        StorageReference listRef=null;
+        if(googleCurrentAcc!=null){
+            listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/"+googleCurrentAcc.getId()+"/images");
+        }
+        else if(firebaseCurrentAcc!=null){
+            listRef = storage.getReferenceFromUrl("gs://mspi-a4b75.appspot.com/"+firebaseCurrentAcc.getUid()+"/images");
+        }
         listRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {

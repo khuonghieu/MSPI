@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,12 +73,12 @@ public class AccountFragment extends Fragment {
         ImageView serviceIcon = view.findViewById(R.id.serviceIcon);
         TextView userName = view.findViewById(R.id.userName);
         TextView userEmail = view.findViewById(R.id.userEmail);
+        final EditText fileName = view.findViewById(R.id.fileName);
 
         //User take picture for face training
         pictureView = view.findViewById(R.id.pictureView);
         final Button takePicture = view.findViewById(R.id.takePicture);
         Button uploadPicture = view.findViewById(R.id.uploadPicture);
-
 
         //Open a camera activity to take picture of the face
         takePicture.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +95,10 @@ public class AccountFragment extends Fragment {
                 StorageReference trainingRef = null;
                 if (googleCurrentAcc != null) {
                     StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
-                    trainingRef = userRef.child("training/" + (int) (Math.random() * 1000000) + ".jpg");
+                    trainingRef = userRef.child("Training/" + fileName.getText().toString() + ".jpg");
                 } else if (firebaseCurrentAcc != null) {
                     StorageReference userRef = firebaseStorage.getReference().child(firebaseCurrentAcc.getUid());
-                    trainingRef = userRef.child("training/" + (int) (Math.random() * 1000000) + ".jpg");
+                    trainingRef = userRef.child("Training/" + fileName.getText().toString() + ".jpg");
                 }
                 // Get the data from an ImageView as bytes
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
