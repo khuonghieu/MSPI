@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 
@@ -28,15 +29,21 @@ public class CameraFragment extends Fragment {
             public void onClick(View v) {
                 String url = "https://mspi-a4b75.firebaseapp.com/login";
                 viewCam.getSettings().setLoadsImagesAutomatically(true);
+                viewCam.getSettings().setAllowContentAccess(true);
                 viewCam.getSettings().setJavaScriptEnabled(true);
+                viewCam.getSettings().setAllowFileAccess(true);
+                viewCam.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                 viewCam.getSettings().setDomStorageEnabled(true);
+                viewCam.getSettings().setMediaPlaybackRequiresUserGesture(false);
                 viewCam.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                viewCam.setWebChromeClient(new WebChromeClient());
                 viewCam.loadUrl(url);
             }
         });
         stopStream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //viewCam.clearCache(true);
                 viewCam.stopLoading();
                 viewCam.destroy();
             }
