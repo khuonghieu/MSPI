@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        card_view:cardBackgroundColor="#7FACF5"
+        card_view:cardBackgroundColor="#DCEDC8"
         card_view:cardCornerRadius="10dp"
         card_view:cardElevation="5dp"
         card_view:cardUseCompatPadding="true">
@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="File name"
-                android:textColor="@color/LOG_IN_TEXT_COLOR"
+                android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
 

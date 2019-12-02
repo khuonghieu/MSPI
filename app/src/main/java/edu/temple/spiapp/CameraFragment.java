@@ -26,9 +26,10 @@ public class CameraFragment extends Fragment {
         showStream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://mspi-a4b75.firebaseapp.com/livestream";
+                String url = "https://mspi-a4b75.firebaseapp.com/login";
                 viewCam.getSettings().setLoadsImagesAutomatically(true);
                 viewCam.getSettings().setJavaScriptEnabled(true);
+                viewCam.getSettings().setDomStorageEnabled(true);
                 viewCam.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                 viewCam.loadUrl(url);
             }

@@ -87,12 +87,15 @@ public class AccountFragment extends Fragment {
                 dispatchTakePictureIntent();
             }
         });
+
         //Upload image to firebase
         final FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StorageReference trainingRef = null;
+
+                //Get to the correct bucket for the current user
                 if (googleCurrentAcc != null) {
                     StorageReference userRef = firebaseStorage.getReference().child(googleCurrentAcc.getId());
                     trainingRef = userRef.child("Training/" + fileName.getText().toString() + ".jpg");
@@ -100,6 +103,7 @@ public class AccountFragment extends Fragment {
                     StorageReference userRef = firebaseStorage.getReference().child(firebaseCurrentAcc.getUid());
                     trainingRef = userRef.child("Training/" + fileName.getText().toString() + ".jpg");
                 }
+
                 // Get the data from an ImageView as bytes
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
@@ -108,6 +112,7 @@ public class AccountFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] data = baos.toByteArray();
 
+                //Upload to firebase
                 UploadTask uploadTask = trainingRef.putBytes(data);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -118,6 +123,8 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                         Toast.makeText(getContext(), taskSnapshot.getMetadata().getPath(), Toast.LENGTH_SHORT).show();
+
+                        //Write file name to database
                         if (googleCurrentAcc != null) {
                             final DocumentReference docIdRef = db.collection("users").document(googleCurrentAcc.getId());
                             db.runTransaction(new Transaction.Function<Void>() {
@@ -177,6 +184,7 @@ public class AccountFragment extends Fragment {
         });
 
 
+        //Create document for user info
         if (googleCurrentAcc != null) {
             Picasso.get().load(googleCurrentAcc.getPhotoUrl()).into(userAva);
             serviceIcon.setBackground(getResources().getDrawable(R.drawable.fui_ic_googleg_color_24dp, null));
